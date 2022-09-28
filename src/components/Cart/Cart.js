@@ -2,9 +2,11 @@ import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
 import classes from "./Cart.module.css";
 import CartContext from "../../store/cart-context";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const Cart = (props) => {
+  const [isOrdered, setIsOrdered] = useState(false);
+
   const cartCtx = useContext(CartContext);
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
@@ -33,18 +35,37 @@ const Cart = (props) => {
     </ul>
   );
 
+  const onOrderHandler = () => {
+    cartCtx.orderFood();
+    setIsOrdered(true);
+    setTimeout(() => {
+      setIsOrdered(false);
+      props.onClose();
+    }, 10000);
+  };
+
   return (
     <Modal onClose={props.onClose}>
       {hasItems && cartItems}
       <div className={classes.total}>
-        <span>Total Amount</span>
-        <span>{totalAmount}</span>
+        {!isOrdered ? (
+          <>
+            <span>Total Amount</span>
+            <span>{totalAmount}</span>
+          </>
+        ) : (
+          <span style={{ margin: "auto" }}>Food is ordered!</span>
+        )}
       </div>
       <div className={classes.actions}>
         <button className={classes["button--alt"]} onClick={props.onClose}>
           Close
         </button>
-        {hasItems && <button className={classes.button}>Order</button>}
+        {hasItems && (
+          <button className={classes.button} onClick={onOrderHandler}>
+            Order
+          </button>
+        )}
       </div>
     </Modal>
   );
