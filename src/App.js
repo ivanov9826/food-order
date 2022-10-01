@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Cart from "./components/Cart/Cart";
 import Header from "./components/Layout/Header";
-import Footer from "./components/Layout/Footer";
 import Meals from "./components/Meals/Meals";
 import CartProvider from "./store/CartProvider";
 
@@ -23,7 +22,6 @@ function App() {
       <main>
         <Meals />
       </main>
-      <Footer />
     </CartProvider>
   );
 }
