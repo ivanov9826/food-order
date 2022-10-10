@@ -9,6 +9,7 @@ const Cart = (props) => {
   const [isOrdered, setIsOrdered] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
+  const [orderError, setOrderError] = useState(false);
 
   const cartCtx = useContext(CartContext);
 
@@ -29,7 +30,7 @@ const Cart = (props) => {
 
   const onSubmitHandler = async (userData) => {
     setIsSubmitting(true);
-    await fetch(
+    const response = await fetch(
       `https://react-practice-80ae8-default-rtdb.europe-west1.firebasedatabase.app/orders.json`,
       {
         method: "POST",
@@ -39,10 +40,14 @@ const Cart = (props) => {
         }),
       }
     );
-    setIsSubmitting(false);
-    setDidSubmit(true);
-
-    cartCtx.clearCart();
+    if (response.status === "200") {
+      setIsSubmitting(false);
+      setDidSubmit(true);
+      cartCtx.clearCart();
+      console.log("done");
+    } else {
+      setOrderError(true);
+    }
   };
 
   const cartItems = (
@@ -99,10 +104,13 @@ const Cart = (props) => {
     </>
   );
 
+  const orderErrorModalContent = <p>Something went wrong with the order!</p>;
+
   return (
     <Modal onClose={props.onClose}>
       {!isSubmitting && !didSubmit && cartModalContent}
-      {isSubmitting && isSubmittingModalContent}
+      {isSubmitting && !orderError && isSubmittingModalContent}
+      {orderError && orderErrorModalContent}
       {!isSubmitting && didSubmit && didSubmitModalContent}
     </Modal>
   );
