@@ -18,7 +18,12 @@ const AvailableMeals = () => {
         throw new Error("Something went wrong!");
       }
       const data = await response.json();
-      setMeals(data);
+
+      //DB returns null value on index 0 even though there isnt such thing when checked in firebase console
+
+      const fixedData = data.slice(1);
+
+      setMeals(fixedData);
       setIsLoading(false);
     };
 
