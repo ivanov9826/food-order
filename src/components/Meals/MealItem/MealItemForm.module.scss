@@ -1,0 +1,22 @@
+@use "../../../styles/variables.scss";
+
+.form {
+  text-align: right;
+
+  button {
+    font: inherit;
+    cursor: pointer;
+    background-color: variables.$orange;
+    border: variables.$light-thin-border;
+    color: white;
+    padding: 0.25rem 2rem;
+    border-radius: 20px;
+    font-weight: bold;
+
+    &:hover,
+    &:active {
+      background-color: #641e03;
+      border-color: #641e03;
+    }
+  }
+}

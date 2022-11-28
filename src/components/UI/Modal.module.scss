@@ -1,3 +1,5 @@
+@use "../../styles/variables.scss";
+
 .backdrop {
   position: fixed;
   top: 0;
@@ -16,7 +18,7 @@
   background-color: white;
   padding: 1rem;
   border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: variables.$shadow;
   z-index: 30;
   animation: slide-down 300ms ease-out forwards;
 }

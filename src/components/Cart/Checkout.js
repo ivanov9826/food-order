@@ -1,4 +1,4 @@
-import classes from "./Checkout.module.css";
+import classes from "./Checkout.module.scss";
 import useInput from "../../hooks/useInput";
 
 const isNotEmpty = (value) => value.trim() !== "";

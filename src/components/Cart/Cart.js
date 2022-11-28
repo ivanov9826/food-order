@@ -1,6 +1,6 @@
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
-import classes from "./Cart.module.css";
+import classes from "./Cart.module.scss";
 import CartContext from "../../store/cart-context";
 import { useContext, useState } from "react";
 import Checkout from "./Checkout";
@@ -71,7 +71,11 @@ const Cart = (props) => {
         Close
       </button>
 
-      <button className={classes.button} onClick={onOrderHandler}>
+      <button
+        className={classes.button}
+        onClick={onOrderHandler}
+        disabled={!hasItems}
+      >
         Order
       </button>
     </div>
